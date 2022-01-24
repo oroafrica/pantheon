@@ -6,7 +6,10 @@
      * fabricjs 4.6
     */
     const { log, trace, error, warn, info, clear } = console;
-
+    const productStyle = "";
+    const productCharacters = {};
+    const productInventery = {};
+    
     const subAction = 
     {
                 
