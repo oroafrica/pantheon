@@ -6,10 +6,20 @@
      * fabricjs 4.6
     */
     const { log, trace, error, warn, info, clear } = console;
-    const productStyle = "";
-    const productCharacters = {};
-    const productInventery = {};
-    
+    /* form variables */
+    const productStyle = $("#camProduct").text();
+    const productCharacter = JSON.parse($("#camCharacteristics").text());
+    const productInventory = JSON.parse($("#camInventory").text());
+    const _svgSelect = $("._svgInput:text");
+    const _alloySelect = $("#alloyInput");
+    const _motifSelect = $("#motifInput");
+    const _accentSelect = $("#accentInput");
+    /* end form variables */
+
+    /* canvas variables */
+
+    /* end canvas variables */
+
     const subAction = 
     {
                 
@@ -28,6 +38,7 @@
     };
     
     /* method return object */
+    log(productStyle);
     let functions = (camStyle = "NONE")=>
     {
         let action = camGroup[camStyle];
