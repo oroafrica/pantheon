@@ -6,26 +6,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>oroafrica</title>
         <link href="https://www.oroafrica.com/images/logos/1/Icon.jpg" rel="shortcut icon" type="image/jpeg" />
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="./js/fabric.460.min.js" crossorigin="anonymous" ></script>
     </head>
     <body>
         <div class="container-fluid justify-content-center">
-            <div class="row">
-
-            </div>
-            <div class="row">
-                <div class="col-lg  col-lg-3">
-                    <div class="">
-                        <img class="https://www.memijewellery.com/images/promo/29/memi_Product_CatBanners_v3Necklaces.jpg" src="" alt="" src="" />
+            <div class="row justify-content-center mx-auto">
+                <div class="col col-sm-2 d-none- border border-primary">
+                    <label id="camProduct" class="small d-block "  >MS016</label>
+                    <label id="camCharacteristics" class="small d-block"  >{"charac_camCode":"SHAPES", "charac_motifs":"null", "charac_inputAccents":"0", "charac_inputText":"0"}</label>
+                    <label id="camInventory" class="small d-block"  >{"invent":"chain"}</label>
+                </div> 
+                <div class="col-sm  col-sm-3 position-relative ">
+                    <div class="input-group input-group-sm flex-nowrap justify-content-center">
+                        <img class="img img-fluid img-thumbnail" id="dynamicImage" src="https://www.memijewellery.com/images/detailed/31/ECODSK07-9Y.jpg" alt="canvas image"  />
+                        <!-- <img id="svgString" class="img img-fluid  border position-absolute " style="width:100px;height:100px;left:11px;top:5px;" src="https://www.memijewellery.com/images/detailed/31/ECODSK07-9Y.jpg" alt="string" />  -->
                     </div>
-                    <div class="">
-                        <canvas id="" width="300px" height="300px" ></canvas>
-                    </div>
-                    <div class="d-none"> 
-                        <img id="" class="" src="" alt="" srcset="" />
+                    <div class="canvasHost w-100 justify-content-center text-center d-none">
+                        <canvas id="orderCanvas" class="border border-2 rounded"  width="300px" height="300px" ></canvas> 
                     </div>
                 </div>
-                <div class="col-lg  col-lg-3">
+                <div class="col-sm col-sm-2">
                     <div class="btn-group btn-group-sm">
                         <button type="button" class="btn btn-outline-primary">start</button>
                         <button type="button" class="btn btn-outline-primary">image</button>
@@ -35,6 +38,7 @@
                 </div>
             </div>
         </div>
-        <script src="./js/fabric.460.min.js" defer async ></script>
+        
+        <script src="./js/camlib.js" defer async crossorigin="anonymous" ></script>
     </body>
 </html>
