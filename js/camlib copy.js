@@ -7,16 +7,14 @@
     */
     const { log, trace, error, warn, info, clear } = console;
     const btns = $(".btn").toArray();
+    /* form variables */
     var debug = false;
 
-    /* form variables */
-    var _dynamicImage = $("#dynamicImage");
-    var _exportSvg = $("#exportSvg");
     var _productStyle = $("#camProduct").text();
     var _productCharacter = ($("#camCharacteristics").text()) ? $("#camCharacteristics").text() : "NONE";
-    var _productInventory = ()=>{ return JSON.parse($("#camInventory").val());} 
+    var productInventory = JSON.parse($("#camInventory").text()); 
     const _svgText = $("._svgInput:text");
-    const _alloySelect = $("._alloySelect").toArray();
+    const _alloySelect = $("._alloySelect")[0];
     const _motifSelect = $("#motifInput");
     const _accentSelect = $("#accentInput");
     var _svgFile;
@@ -24,7 +22,7 @@
     /* end form variables */
 
     /* canvas variables */
-    const config ={ cnf:{ canvasWidth:100 ,canvasHeight:100 ,background:"rgba(231,245,249,0.8)",objectCaching:false,hoverCursor:"pointer" } };
+    const config ={ cnf:{ canvasWidth:300 ,canvasHeight:300 ,background:"rgba(231,245,249,0.8)",objectCaching:false,hoverCursor:"pointer" } };
     const colour = {"NONE":"#BABABA","AG":"#BABABA","9Y":"#E0B97F","9R":"#DDB8A9","9W":"#C0C0C0"};
     var canvas; 
     var serializer = new XMLSerializer();
@@ -34,19 +32,18 @@
 
     const subAction = 
     {
-        test:()=> $(btns[2]).click( ()=> warn(_productInventory()))
-        ,toggleCanvas:()=> $(btns[3]).click(()=> $(".canvasHost").toggleClass("d-none"))  
+        toggleCanvas:()=> $(btns[3]).click(()=> $(".canvasHost").toggleClass("d-none"))  
         ,svgFileUrl:(name="MS016")=> { _svgFile = "./svg/".concat(name).concat(".svg"); return _svgFile; }
         ,imageFileUrl:(name="MS016")=> { _svgAlloyImage = "./images/".concat(name).concat(".png"); return _svgAlloyImage; }
         ,loadFabricSvg:()=>{}  
         ,loadNormalSvg:()=>{} 
-        
+        ,test:()=> $(btns[0]).click( ()=> subAction.drawImage())  //log( new XMLSerializer().serializeToString( $("#svgString").attr("src")));
         ,debugLog:()=> 
         {   
             let report = {};
             report.productStyle=_productStyle;
             report.productCharacter=_productCharacter;
-            report.productInventory=_productInventory();
+            report.productInventory=productInventory;
             report.svgString= "uncomment me!"; //svgString;
 
             if(debug){ log(JSON.stringify(report)); } 
@@ -83,25 +80,21 @@
             var im = new Image();
             im.src = "data:image/svg+xml,".concat(encodeURIComponent(canvas.toSVG()));
             //draw 
-            im.onload = ()=>
-            {
-                ctx.drawImage(im, 0, 0, dim*window.devicePixelRatio, dim*window.devicePixelRatio); 
-                $(_dynamicImage).attr("src",tmpCanvas.toDataURL());
-                $(_exportSvg).attr("src","data:image/svg+xml,".concat(encodeURIComponent(canvas.toSVG())));
-            };
+            im.onload = ()=>{ctx.drawImage(im, 0, 0, dim*window.devicePixelRatio, dim*window.devicePixelRatio); $("#dynamicImage").attr("src",tmpCanvas.toDataURL());}; 
         }
         ,alloySelector:(doc)=>
         {
-            $(document).on("change",_alloySelect[0],(ev)=>
+            $(document).on("change",_alloySelect,(ev)=>
             {
                 doc = parser.parseFromString(svgString,"image/svg+xml");
-                doc.getElementById("shape").setAttribute("fill",colour[$(_alloySelect).val()]);
+                doc.getElementById("shape").setAttribute("fill",colour[$(_alloySelect).val()]); //colour[$(ev.target).val()
+                log($(ev.target).val());
                 svgString = serializer.serializeToString(doc);
                 subAction.drawSvg();
                 subAction.drawImage();
+                log(canvas.toSVG());
             })
         }
-
     };
 
     /* svg core functions */
@@ -114,7 +107,7 @@
             doc = parser.parseFromString(svgString,"image/svg+xml");
             var p = doc.getElementsByTagName("path");
             subAction.alloySelector(doc);
-            subAction.scaleFactor(2);
+
             // p[0].setAttribute("fill","#f0f");
            
             // let x = doc.getElementById("shapeMark");
@@ -124,8 +117,8 @@
             
             svgString = serializer.serializeToString(doc);
 
-            subAction.drawSvg();
-            subAction.drawImage();
+            // subAction.drawSvg();
+            // subAction.drawImage();
         }
         ,NONE:()=>
         {
@@ -134,7 +127,7 @@
     };
     
     /* method return object */
-    let functions = ()=>
+    let functions = (camStyle = "NONE")=>
     {
         subAction.toggleCanvas();
         
@@ -146,19 +139,24 @@
             canvas = new fabric.Canvas("orderCanvas",config); 
             doc = parser.parseFromString(d,"image/svg+xml");
             svgString = serializer.serializeToString(doc);
+            log(svgString);
             subAction.test();
             
             subAction.debugLog();
             subAction.drawSvg();
             subAction.drawImage();
-  
-            let action = camGroup["PATHS"];
+            subAction.scaleFactor(3);
+            
+            let action = camGroup[_productCharacter];
+           
             return action();
         });
+
+        // return action();
     };
     
     /* assign method if undefined. global name: svgInput, call: svgInput.classic() */ 
-    if(typeof(window.pantheonCanvas) === 'undefined'){ return window.pantheonCanvas = functions(); }
+    if(typeof(window.svgInput) === 'undefined'){ window.svgInput = functions(); }
 
 })(window);
 

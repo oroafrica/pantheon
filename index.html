@@ -13,32 +13,78 @@
     </head>
     <body>
         <div class="container-fluid justify-content-center">
-            <div class="row justify-content-center mx-auto">
+            <div class="row justify-content-center mx-auto p-5">
                 <div class="col col-sm-2 d-none- border border-primary">
-                    <label id="camProduct" class="small d-block "  >MS016</label>
-                    <label id="camCharacteristics" class="small d-block"  >{"charac_camCode":"SHAPES", "charac_motifs":"null", "charac_inputAccents":"0", "charac_inputText":"0"}</label>
-                    <label id="camInventory" class="small d-block"  >{"invent":"chain"}</label>
+                    <label id="camProduct" class="small d-block "  >BBAR</label>
+                    <input type="text" id="camInventory" class="small d-block w-100"  value='{ "camProduct":"MS016","camInventory":"chainX","zoomScale":"0.5","camCharacteristics":"PATHS" }' />
+                    <label id="camCharacteristics">PATHS</label> 
+                    <ul>
+                        <li id="k"></li>
+                        <li id="k"></li>
+                        <li id="k"></li>
+                        <li id="k"></li>
+                        <li id="k"></li>
+                    </ul>
                 </div> 
                 <div class="col-sm  col-sm-3 position-relative ">
                     <div class="input-group input-group-sm flex-nowrap justify-content-center">
                         <img class="img img-fluid img-thumbnail" id="dynamicImage" src="https://www.memijewellery.com/images/detailed/31/ECODSK07-9Y.jpg" alt="canvas image"  />
-                        <!-- <img id="svgString" class="img img-fluid  border position-absolute " style="width:100px;height:100px;left:11px;top:5px;" src="https://www.memijewellery.com/images/detailed/31/ECODSK07-9Y.jpg" alt="string" />  -->
+                        <img id="exportSvg" class="img img-fluid rounded border position-absolute canvasHost d-none" style="width:100px;height:100px;left:11px;top:10px;" src="https://www.memijewellery.com/images/detailed/31/ECODSK07-9Y.jpg" alt="string" /> 
                     </div>
-                    <div class="canvasHost w-100 justify-content-center text-center d-none">
+                    <div class="canvasHost w-100 justify-content-center text-center d-none ">
                         <canvas id="orderCanvas" class="border border-2 rounded"  width="300px" height="300px" ></canvas> 
                     </div>
                 </div>
-                <div class="col-sm col-sm-2">
-                    <div class="btn-group btn-group-sm">
+                <div class="col-sm col-sm-2 ">
+                    <div class="btn-group-vertical w-100">
+                        <input type="text" placeholder="text 1" class="_svgInput form-control mb-1" />
+                        <input type="text" placeholder="text 2" class="_svgInput form-control mb-1" />
+                        <input type="text" placeholder="text 3" class="_svgInput form-control mb-3" />
+                        
+                        <select class="form-control mb-3 _alloySelect" >
+                            <option value="NONE">none</option>
+                            <option value="AG">AG</option>
+                            <option value="9Y">9Y</option>
+                            <option value="9R">9R</option>
+                            <option value="9W">9W</option>
+                        </select>
+                       
+                        <select class="form-control mb-3 _motifSelect">
+                            <option value="NONE">none</option>
+                            <option value="B">butterfly</option>
+                            <option value="C">circle</option>
+                            <option value="F">flower</option>
+                            <option value="H">heart</option>
+                        </select>
+                        
+                        <select class="form-control mb-3 _accentSelect">
+                            <option value="NONE">none</option>
+                            <option value="D">diamond</option>
+                            <option value="AJAN">jan</option>
+                            <option value="AFEB">feb</option>
+                            <option value="AMAR">mar</option>
+                            <option value="AAPR">apr</option>
+                            <option value="AMAY">may</option>
+                            <option value="AJUN">jun</option>
+                            <option value="AJUL">jul</option>
+                            <option value="AAUG">aug</option>
+                            <option value="ASEP">sep</option>
+                            <option value="AOCT">oct</option>
+                            <option value="ANOV">nov</option>
+                            <option value="ADEC">dec</option>
+                        </select>
+                    </div>
+                    
+                    <div class="btn-group btn-group-sm w-100">
                         <button type="button" class="btn btn-outline-primary">start</button>
                         <button type="button" class="btn btn-outline-primary">image</button>
-                        <button type="button" class="btn btn-outline-primary">other</button>
+                        <button type="button" id="other" class="btn btn-outline-primary">other</button>
                         <button type="button" class="btn btn-outline-primary">toggle</button>
                     </div>
                 </div>
             </div>
         </div>
         
-        <script src="./js/camlib.js" defer async crossorigin="anonymous" ></script>
+        <script src="./js/camlib.js" crossorigin="anonymous" ></script>
     </body>
 </html>
